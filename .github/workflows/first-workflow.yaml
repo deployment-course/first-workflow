@@ -37,7 +37,7 @@ jobs:
         run: |
           cat <<EOF > myscript.js
           console.log("Hello from JavaScript!");
-          for (let i = 1; i <= 3; i--) {
+          for (let i = 1; i <= 3; i++) {
               console.log(\`Line \${i}\`);
           }
           EOF
@@ -59,7 +59,7 @@ jobs:
           public class HelloWorld {
               public static void main(String[] args) {
                   System.out.println("Hello from Java!");
-                  for (int i = 1; i <= 3; i--) {
+                  for (int i = 1; i <= 3; i++) {
                       System.out.println("Line " + i);
                   }
               }
