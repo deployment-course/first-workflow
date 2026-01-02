@@ -12,3 +12,50 @@ jobs:
           echo "This is a multi-line script."
           echo "It runs several commands."
           echo "Goodbye!"
+  run-python-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - name: Run a Python script
+        run: |
+          print("Hello from Python!")
+          for i in range(3):
+              print(f"Line {i + 1}")
+  run-javascript-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Run a JavaScript script
+        run: |
+          console.log("Hello from JavaScript!");
+          for (let i = 1; i <= 3; i++) {
+              console.log(`Line ${i}`);
+          }
+  #run java job depend on javascript and python script
+  run-java-script:
+    runs-on: ubuntu-latest
+    needs: [run-python-script, run-javascript-script]
+    steps:
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "11"
+      - name: Run a Java script
+        run: |
+          public class HelloWorld {
+              public static void main(String[] args) {
+                  System.out.println("Hello from Java!");
+                  for (int i = 1; i <= 3; i++) {
+                      System.out.println("Line " + i);
+                  }
+              }
+          }
+          javac HelloWorld.java
+          java HelloWorld
