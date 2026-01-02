@@ -7,11 +7,7 @@ jobs:
     steps:
       - name: Run a one-line script
         run: echo "Hello, World!"
-      - name: Run a multi-line script
-        run: |
-          echo "This is a multi-line script."
-          echo "It runs several commands."
-          echo "Goodbye!"
+
   run-python-script:
     runs-on: ubuntu-latest
     steps:
@@ -20,10 +16,15 @@ jobs:
         with:
           python-version: "3.x"
       - name: Run a Python script
+        # Fix: Create the file first using 'cat', then run it
         run: |
+          cat <<EOF > myscript.py
           print("Hello from Python!")
           for i in range(3):
               print(f"Line {i + 1}")
+          EOF
+          python myscript.py
+
   run-javascript-script:
     runs-on: ubuntu-latest
     steps:
@@ -32,12 +33,16 @@ jobs:
         with:
           node-version: "16"
       - name: Run a JavaScript script
+        # Fix: Create the file first, then run it with node
         run: |
+          cat <<EOF > myscript.js
           console.log("Hello from JavaScript!");
           for (let i = 1; i <= 3; i++) {
-              console.log(`Line ${i}`);
+              console.log(\`Line \${i}\`);
           }
-  #run java job depend on javascript and python script
+          EOF
+          node myscript.js
+
   run-java-script:
     runs-on: ubuntu-latest
     needs: [run-python-script, run-javascript-script]
@@ -48,7 +53,9 @@ jobs:
           distribution: "temurin"
           java-version: "11"
       - name: Run a Java script
+        # Fix: Create the Java file, compile it, then run it
         run: |
+          cat <<EOF > HelloWorld.java
           public class HelloWorld {
               public static void main(String[] args) {
                   System.out.println("Hello from Java!");
@@ -57,5 +64,6 @@ jobs:
                   }
               }
           }
+          EOF
           javac HelloWorld.java
           java HelloWorld
