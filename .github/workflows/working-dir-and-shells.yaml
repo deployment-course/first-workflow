@@ -24,3 +24,9 @@ jobs:
           echo $GITHUB_SHA
           echo $GITHUB_REPOSITORY
           echo $GITHUB_WORKSPACE
+      - name: Python shell
+        shell: python
+        run: |
+          import platform
+          print("Hello from Python shell!")
+          print(platform.processor()))
