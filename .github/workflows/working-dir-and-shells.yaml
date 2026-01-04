@@ -29,4 +29,4 @@ jobs:
         run: |
           import platform
           print("Hello from Python shell!")
-          print(platform.processor()))
+          print(platform.processor())
