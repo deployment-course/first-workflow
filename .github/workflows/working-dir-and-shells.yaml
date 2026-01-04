@@ -3,17 +3,21 @@ on: [push]
 jobs:
   display-wd-info:
     runs-on: ubuntu-latest
-    run: |
-      pwd
-      ls -a
-      echo $GITHUB_SHA
-      echo $GITHUB_REPOSITORY
-      echo $GITHUB_WORKSPACE
+    steps:
+      - name: Display working directory info
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
   display-wd-info-windows:
     runs-on: windows-latest
-    run: |
-      pwd
-      ls -a
-      echo $GITHUB_SHA
-      echo $GITHUB_REPOSITORY
-      echo $GITHUB_WORKSPACE
+    steps:
+      - name: Display working directory info on Windows
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
